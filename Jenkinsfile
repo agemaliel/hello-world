@@ -12,6 +12,10 @@ pipeline {
         REMOTE_HOST = '192.168.147.233'
     }
     
+    tools {
+        maven 'maven-3.8.5'
+    }
+    
     options {
         disableConcurrentBuilds()
     }
@@ -21,6 +25,14 @@ pipeline {
             steps {
                 // Checkout code from GitHub using credentials
                 git branch: 'main', url: env.REPO_URL
+            }
+        }
+         stage('Build with Maven') {
+            steps {
+                script {
+                    // Run a Maven build (e.g., compile, test, package)
+                    sh 'mvn clean package'
+                }
             }
         }
         
