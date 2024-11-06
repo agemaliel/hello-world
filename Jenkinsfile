@@ -68,7 +68,7 @@ pipeline {
             steps {
                 sshagent(credentials: [env.SSH_CREDENTIAL_ID]) {
                     sh """
-                    ssh -o StrictHostKeyChecking=no ${env.REMOTE_USER}@${env.REMOTE_HOST} 'kubectl create deployment hello-world --image=agemaliel/hello-world:latest'
+                    ssh -o StrictHostKeyChecking=no ${env.REMOTE_USER}@${env.REMOTE_HOST} 'kubectl create deployment hello-world --image=agemaliel/hello-world:latest && kubectl expose deployment hello-world --type=NodePort --port=8080'
                     """
                 }
             }
